@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	<context:component-scan base-package="com.resume" />
+	<mvc:annotation-driven />
+	<tx:annotation-driven />
+	<context:annotation-config />
+      <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+
+			<property name="dataSource">
+			  <ref bean="dataSource" />
+			</property>
+
+			<property name="configLocation" value="classpath:hibernate/hibernate.cfg.xml"/>
+			<property name="annotatedClasses">
+			<list>
+				  <value>com.resume.model.LoginModel</value> <!-- Entity classes-->
+				  <value>com.resume.model.RegistrationModel</value>
+				  <value>com.resume.model.ResumeModel</value>
+				  <value>com.resume.model.LocalAddressModel</value>
+				  <value>com.resume.model.PermanentAddressModel</value>
+			</list>
+			</property>
+
+      </bean>     
+     <!--  <bean class="com.resume.model.LocalAddressModel"></bean> -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+</beans>
