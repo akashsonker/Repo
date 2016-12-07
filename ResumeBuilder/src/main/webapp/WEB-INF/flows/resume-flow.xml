@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+        
+<var name="resumeModel" class="com.resume.model.ResumeModel"/>
+<var name="localAddressModel" class="com.resume.model.LocalAddressModel" />
+<var name="permanentAddressModel" class="com.resume.model.PermanentAddressModel"/>
+
+
+	<view-state id="step1" view="/WEB-INF/flows/step1.jsp" model="resumeModel" >
+	<on-entry>
+        <set name="flowScope.resumeModel.localAddressModel" value="flowScope.localAddressModel" type="com.resume.model.LocalAddressModel"/>
+</on-entry>
+	
+		<transition on="next" to="step2"/> 
+		<transition on="cancel" to="cancel"/>
+	</view-state>
+	<view-state id="step2" view="/WEB-INF/flows/step2.jsp" model="resumeModel">
+		<transition on="previous" to="step1"/>
+		<transition on="next" to="step3"/>
+		<transition on="cancel" to="cancel"/>
+	</view-state>
+	
+	<view-state id="step3" view="/WEB-INF/flows/step3.jsp" model="resumeModel">
+		<transition on="previous" to="step2"/>
+		<transition on="finish" to="success"/>
+		<transition on="cancel" to="cancel"/>
+	</view-state>
+
+	<end-state id="success" view="/WEB-INF/views/success.jsp"/>
+
+	<end-state id="cancel" view="/WEB-INF/views/dashboard.jsp"/>
+	
+</flow>
